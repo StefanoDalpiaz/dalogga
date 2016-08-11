@@ -27,6 +27,9 @@ import { colourify } from './colours';
  *                          the minimum level of logging that will produce an output.
  *                          Use the level name (e.g. 'warn') or the level number (e.g
  *                          0 for "trace" to 6 for "fatal")
+ * @param {(number|string)} settings.isEnabled
+ *                          when this parameter is `false`, the logger will not output
+ *                          any data. Defaults to `true`.
  *
  * @returns {object} the logger object
 */

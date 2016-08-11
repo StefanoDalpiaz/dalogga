@@ -1,8 +1,12 @@
 {
   "name": "dalogga",
-  "version": "0.8.0",
-  "description": "A simple and configurable logger for Node and browsers",
+  "version": "0.8.2",
+  "description": "A simple and flexible logger for NodeJS and browsers.",
   "main": "dist/dalogga.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StefanoDalpiaz/dalogga"
+  },
   "scripts": {
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register --require test/setup.js --recursive ./test/unit",
@@ -12,6 +16,7 @@
     "build": "webpack"
   },
   "author": "Stefano Dalpiaz",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.2",

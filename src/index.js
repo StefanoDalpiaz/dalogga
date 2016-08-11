@@ -3,14 +3,15 @@ import getInitialState from './getInitialState';
 import logMessages from './logMessages';
 import levelPrefix from './prefixes/levelPrefix';
 import timestampPrefix from './prefixes/timestampPrefix';
+import { colourify } from './colours';
 
 export function createLogger(settings) {
   const state = getInitialState(settings || {});
 
-  const logger = levels.reduce((acc, level, index) => (
+  return levels.reduce((acc, level, index) => (
     {
       ...acc,
-      [level]: logMessages.bind(undefined, state, index),
+      [level]: colourify(logMessages.bind(undefined, state, index)),
     }
   ), {
     getLevel: () => levels[state.currentLevel],
@@ -18,8 +19,6 @@ export function createLogger(settings) {
     disable: () => { state.isEnabled = false; },
     enable: () => { state.isEnabled = true; },
   });
-
-  return logger;
 }
 
 export const prefixes = {

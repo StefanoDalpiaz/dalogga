@@ -1,5 +1,5 @@
 import levels from './levels';
-import getColouredMessage from './getColouredMessage';
+import { getColouredMessage } from './colours';
 
 function getMessageValue(message, state, level, messages) {
   const messageValue = typeof message === 'function'
@@ -15,12 +15,13 @@ function getMessageValue(message, state, level, messages) {
   return getColouredMessage(messageValue.colour, messageValue.text);
 }
 
-export default function logMessages(state, level, ...messages) {
+export default function logMessages(state, level, colour, ...messages) {
   const formattedMessages = messages.map(item => {
     if (item && typeof item === 'object' && Object.keys(item).length > 0) {
-      return JSON.stringify(item, null, 2);
+      const json = JSON.stringify(item, null, 2);
+      return state.useColours ? getColouredMessage(colour, json) : json;
     }
-    return item;
+    return state.useColours ? getColouredMessage(colour, item) : item;
   });
 
   if (state.isEnabled && state.currentLevel <= level) {

@@ -11,10 +11,24 @@ const colourStrings = {
   white: '\x1b[37m',
 };
 
-export default function getColouredMessage(colour, message) {
+const colours = Object.keys(colourStrings);
+
+export default colours;
+
+export function getColouredMessage(colour, message) {
   const colourString = colourStrings[colour];
   if (!colourString || !message) {
     return message;
   }
   return `${colourString}${message}${resetString}`;
+}
+
+export function colourify(fn) {
+  return Object.assign(
+    fn.bind(undefined, undefined),
+    colours.reduce((obj, colour) => ({
+      ...obj,
+      [colour]: fn.bind(undefined, colour),
+    }), {})
+  );
 }

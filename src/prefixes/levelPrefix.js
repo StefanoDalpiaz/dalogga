@@ -1,3 +1,5 @@
+import { colourify } from '../colours';
+
 const colorMap = {
   trace: 'cyan',
   debug: 'cyan',
@@ -8,9 +10,11 @@ const colorMap = {
   fatal: 'red',
 };
 
-export default function levelPrefix(levelName) {
+function levelPrefix(colour, levelName) {
   return {
     text: `[${levelName.toUpperCase()}]`,
-    colour: colorMap[levelName],
+    colour: colour || colorMap[levelName],
   };
 }
+
+export default colourify(levelPrefix);

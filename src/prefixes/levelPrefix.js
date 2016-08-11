@@ -10,6 +10,8 @@ const colorMap = {
   fatal: 'red',
 };
 
+// writes a prefix with the current level name and the specified colour.
+// if no colour is specified, it outputs a different colour for each level
 function levelPrefix(colour, levelName) {
   return {
     text: `[${levelName.toUpperCase()}]`,

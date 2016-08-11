@@ -1,18 +1,18 @@
 import levels from './levels';
 import { getColouredMessage } from './colours';
 
-function getMessageValue(message, state, level, messages) {
-  const messageValue = typeof message === 'function'
-    ? message(levels[level], messages)
-    : message;
+function getPrefixValue(prefix, state, level, messages) {
+  const prefixValue = typeof prefix === 'function'
+    ? prefix(levels[level], messages)
+    : prefix;
 
-  if (!messageValue || !messageValue.text) {
-    return messageValue;
+  if (!prefixValue || !prefixValue.text) {
+    return prefixValue;
   }
-  if (!messageValue.colour || !state.useColours) {
-    return messageValue.text;
+  if (!prefixValue.colour || !state.useColours) {
+    return prefixValue.text;
   }
-  return getColouredMessage(messageValue.colour, messageValue.text);
+  return getColouredMessage(prefixValue.colour, prefixValue.text);
 }
 
 export default function logMessages(state, level, colour, ...messages) {
@@ -26,7 +26,7 @@ export default function logMessages(state, level, colour, ...messages) {
 
   if (state.isEnabled && state.currentLevel <= level) {
     const prefixValues = state.prefixes.map(prefixItem =>
-      getMessageValue(prefixItem, state, level, messages)
+      getPrefixValue(prefixItem, state, level, messages)
     );
 
     state.logFunction[level](

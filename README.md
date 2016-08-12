@@ -36,7 +36,7 @@ logger.info('it works with CommonJS!');
 
 ### Using as a globally-scoped variable
 
-For those frontend projects that do not use a module bundler (like [webpack](https://webpack.github.io) or (browserify)[http://browserify.org]), it is possible to include a `script` tag in the page, and the `dalogga` library will be available in the global scope:
+For those frontend projects that do not use a module bundler (like [webpack](https://webpack.github.io) or [browserify](http://browserify.org)), it is possible to include a `script` tag in the page, and the `dalogga` library will be available in the global scope:
 
 ```html
 <script src="path/to/dalogga.js"></script>

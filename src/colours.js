@@ -23,6 +23,8 @@ export function getColouredMessage(colour, message) {
 
 const colours = Object.keys(colourStrings);
 
+export default colours;
+
 // gets as input a function that accepts a colour as first parameter, and returns the same function
 // bound to 'no colour', with an additional property for every possible colour.
 // example: given the function with signature `fn1(colour, text)`, it will return a new function

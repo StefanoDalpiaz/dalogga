@@ -45,6 +45,7 @@ export function createLogger(settings) {
   ), {
     getLevel: () => levels[state.currentLevel],
     setLevel: level => { state.currentLevel = getLevelNumber(level); },
+    isEnabled: () => state.isEnabled,
     disable: () => { state.isEnabled = false; },
     enable: () => { state.isEnabled = true; },
   });

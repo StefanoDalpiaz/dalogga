@@ -9,8 +9,6 @@ function getLogFunctionArray(settings) {
     return levels.map(() => settings.logFunction);
   }
 
-  const consoleObj = console || {};
-
   // for each level, check if there is a method of the `console` object with that name.
   // if not found, use the function from the previous level (e.g. 'fatal' will use `console.error`
   // because `console.fatal` does not exist).
@@ -18,8 +16,8 @@ function getLogFunctionArray(settings) {
   const defaultLogFnArr = ['log'] // need to start from a function that undoubtedly exists, so use 'log' first
     .concat(levels)
     .reduce((logFnArr, level, index) => {
-      const consoleMethod = consoleObj[level];
-      return logFnArr.concat(consoleMethod ? consoleMethod.bind(consoleObj) : logFnArr[index - 1]);
+      const consoleMethod = console[level];
+      return logFnArr.concat(consoleMethod ? consoleMethod.bind(console) : logFnArr[index - 1]);
     }, [])
     .slice(1); // the first entry will be `console.log`, which was manually added, so get rid of it
 

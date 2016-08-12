@@ -39,7 +39,7 @@ export default function getInitialState(settings) {
   // otherwise only enable colours if the current process is running in a TTY
   const useColours = typeof settings.useColours === 'boolean'
     ? settings.useColours
-    : (!settings.logFunction && typeof process !== 'undefined' && (process.stdout || {}).isTTY);
+    : (!settings.logFunction && typeof process !== 'undefined' && process.stdout && process.stdout.isTTY);
 
   const isEnabled = settings.isEnabled !== false;
   const currentLevel = getLevelNumber(settings.level || 0);

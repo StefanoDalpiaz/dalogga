@@ -1,30 +1,27 @@
 import { createLogger } from '../../src';
+import levels from '../../src/levels';
 
-describe('integration tests', () => {
+describe('logger levels', () => {
   const sandbox = sinon.sandbox.create();
-  const loggerOptions = {
-    logFunction: {
-      trace: () => {},
-      debug: () => {},
-      log: () => {},
-      info: () => {},
-      warn: () => {},
-      error: () => {},
-      fatal: () => {},
-    },
+  const logFunctionMap = {
+    trace: () => {},
+    debug: () => {},
+    log: () => {},
+    info: () => {},
+    warn: () => {},
+    error: () => {},
+    fatal: () => {},
   };
   let logger;
 
   beforeEach(() => {
-    sandbox.stub(Date.prototype, 'toISOString').returns('NOW!');
-    sandbox.stub(loggerOptions.logFunction, 'trace');
-    sandbox.stub(loggerOptions.logFunction, 'debug');
-    sandbox.stub(loggerOptions.logFunction, 'log');
-    sandbox.stub(loggerOptions.logFunction, 'info');
-    sandbox.stub(loggerOptions.logFunction, 'warn');
-    sandbox.stub(loggerOptions.logFunction, 'error');
-    sandbox.stub(loggerOptions.logFunction, 'fatal');
-    logger = createLogger(loggerOptions);
+    levels.forEach(level => {
+      sandbox.stub(logFunctionMap, level);
+    });
+    logger = createLogger({
+      logFunction: logFunctionMap,
+      prefixes: [],
+    });
   });
 
   afterEach(() => {
@@ -36,21 +33,6 @@ describe('integration tests', () => {
       expect(() => logger.setLevel('foo')).to.throw('Invalid level: foo');
     });
   });
-
-  function testLogOutput(methods) {
-    Object.keys(methods).forEach(methodName => {
-      const shouldLog = methods[methodName];
-      const testString = `should ${shouldLog ? '' : 'not '}log "${methodName}" messages`;
-      it(testString, () => {
-        logger[methodName](testString);
-        if (shouldLog) {
-          expect(loggerOptions.logFunction[methodName]).to.have.been.calledWith('NOW!', `[${methodName.toUpperCase()}]`, '-', testString);
-        } else {
-          expect(loggerOptions.logFunction[methodName]).to.not.have.been.called;
-        }
-      });
-    });
-  }
 
   context('when setting a level as a number', () => {
     it('should set the right level', () => {
@@ -65,6 +47,21 @@ describe('integration tests', () => {
       expect(logger.getLevel()).to.eql('warn');
     });
   });
+
+  function testLogOutput(methods) {
+    Object.keys(methods).forEach(methodName => {
+      const shouldLog = methods[methodName];
+      const testString = `should ${shouldLog ? '' : 'not '}log "${methodName}" messages`;
+      it(testString, () => {
+        logger[methodName](testString);
+        if (shouldLog) {
+          expect(logFunctionMap[methodName]).to.have.been.calledWith(testString);
+        } else {
+          expect(logFunctionMap[methodName]).to.not.have.been.called;
+        }
+      });
+    });
+  }
 
   [true, false].forEach(isEnabled => {
     context(`when the logger is ${isEnabled ? 'enabled' : 'disabled'}`, () => {

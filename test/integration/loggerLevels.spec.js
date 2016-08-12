@@ -83,6 +83,11 @@ describe('logger levels', () => {
           expect(level).to.eql('trace');
         });
 
+        it(`should set the state as ${isEnabled ? 'enabled' : 'disabled'}`, () => {
+          const isEnabledState = logger.isEnabled();
+          expect(isEnabledState).to.eql(isEnabled);
+        });
+
         testLogOutput({
           trace: isEnabled,
           debug: isEnabled,

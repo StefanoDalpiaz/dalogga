@@ -1,11 +1,10 @@
-/* eslint-disable */
-
-var webpack = require('webpack');
+var path = require('path'); // eslint-disable-line no-var
+var webpack = require('webpack'); // eslint-disable-line no-var
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: __dirname + '/dist', // eslint-disable-line prefer-template
+    path: path.join(__dirname, 'dist'),
     filename: 'dalogga.js',
     library: 'dalogga',
     libraryTarget: 'umd',

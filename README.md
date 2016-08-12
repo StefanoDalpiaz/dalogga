@@ -93,6 +93,7 @@ The `createLogger` function returns an object that exposes the following methods
 
 * __disable__(): once this method is invoked, the logger will not output any data at any level, until the `enable` method is called
 * __enable__(): if the logger was previously disabled, it will get re-enabled. The logger level will remain unaffected
+* __isEnabled__(): returns a boolean value that tells whether the logger will generate any output when the logging methods are called
 * __getLevel__(): returns the name of the current minimum level that generates an output
 * __setLevel__(level): sets the current minimum level that generates an output. The `level` argument can be either the level name, or the corresponding level number (see list above)
 

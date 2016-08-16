@@ -1,6 +1,6 @@
 {
   "name": "dalogga",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "description": "A simple and flexible logger for NodeJS and browsers.",
   "main": "dist/dalogga.js",
   "repository": {

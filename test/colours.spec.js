@@ -1,5 +1,5 @@
-import { createLogger, prefixes } from '../../src';
-import colours from '../../src/colours';
+import { createLogger, prefixes } from '../src';
+import colours from '../src/colours';
 
 describe('colours', () => {
   const sandbox = sinon.sandbox.create();

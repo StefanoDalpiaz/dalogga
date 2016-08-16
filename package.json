@@ -8,11 +8,9 @@
     "url": "https://github.com/StefanoDalpiaz/dalogga"
   },
   "scripts": {
-    "test": "npm run test:unit && npm run test:integration",
-    "test:unit": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register --require test/setup.js --recursive ./test/unit",
-    "test:integration": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register --require test/setup.js --recursive ./test/integration",
+    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register --require test/setup.js --recursive ./test/**/*.spec.js",
     "test:karma": "cross-env NODE_ENV=test karma start",
-    "cover": "cross-env NODE_ENV=test nyc --reporter html --source-map false --instrument false --require babel-core/register mocha --require ./test/setup.js --recursive ./test/integration",
+    "cover": "cross-env NODE_ENV=test nyc --reporter html --source-map false --instrument false --require babel-core/register mocha --require ./test/setup.js --recursive ./test/**/*.spec.js",
     "lint": "eslint src/** test/**",
     "preversion": "npm run lint && npm test && npm run build && git commit --allow-empty -m \"Updated compiled bundle\" -- dist/dalogga.js",
     "build": "webpack"

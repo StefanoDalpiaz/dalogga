@@ -1,4 +1,4 @@
-import { createLogger, prefixes } from '../../src';
+import { createLogger, prefixes } from '../src';
 
 describe('prefixes', () => {
   const sandbox = sinon.sandbox.create();

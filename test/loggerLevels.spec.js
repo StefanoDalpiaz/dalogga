@@ -1,5 +1,5 @@
-import { createLogger } from '../../src';
-import levels from '../../src/levels';
+import { createLogger } from '../src';
+import levels from '../src/levels';
 
 describe('logger levels', () => {
   const sandbox = sinon.sandbox.create();

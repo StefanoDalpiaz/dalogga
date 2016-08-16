@@ -1,4 +1,4 @@
-import { createLogger } from '../../src';
+import { createLogger } from '../src';
 
 describe('serialisation', () => {
   const sandbox = sinon.sandbox.create();

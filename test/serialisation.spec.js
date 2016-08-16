@@ -54,4 +54,38 @@ describe('serialisation', () => {
       });
     });
   });
+
+  context('when logging an error', () => {
+    it('should not serialise the error', () => {
+      const error = new Error('Error!');
+      logger.log(error);
+      expect(logFunction).to.have.been.calledWith(error);
+    });
+
+    context('when the error object has custom properties', () => {
+      it('should not serialise the error', () => {
+        const error = new Error('Error!');
+        error.foo = 'bar';
+        logger.log(error);
+        expect(logFunction).to.have.been.calledWith(error);
+      });
+    });
+  });
+
+  context('when logging a date', () => {
+    it('should not serialise the date', () => {
+      const date = new Date();
+      logger.log(date);
+      expect(logFunction).to.have.been.calledWith(date);
+    });
+
+    context('when the date object has custom properties', () => {
+      it('should not serialise the error', () => {
+        const date = new Date();
+        date.foo = 'bar';
+        logger.log(date);
+        expect(logFunction).to.have.been.calledWith(date);
+      });
+    });
+  });
 });

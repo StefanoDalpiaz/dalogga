@@ -33,7 +33,10 @@ export default function logMessages(state, level, colour, ...messages) {
     // however, do not serialise it if the object is empty (i.e. there
     // are no enumerable properties, like in the Date or Error objects,
     // which would end up printed as `{}` otherwise)
-    if (item && typeof item === 'object' && Object.keys(item).length > 0) {
+    if (item && typeof item === 'object' &&
+                Object.keys(item).length > 0 &&
+                !(item instanceof Error) &&
+                !(item instanceof Date)) {
       const json = JSON.stringify(item, null, 2);
       return state.useColours ? getColouredMessage(colour, json) : json;
     }

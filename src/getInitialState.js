@@ -15,10 +15,9 @@ function getLogFunctionArray(settings) {
   // this will create a list of default functions to fall back to for each level.
   const defaultLogFnArr = ['log'] // need to start from a function that undoubtedly exists, so use 'log' first
     .concat(levels)
-    .reduce((logFnArr, level, index) => {
-      const consoleMethod = console[level];
-      return logFnArr.concat(consoleMethod ? consoleMethod.bind(console) : logFnArr[index - 1]);
-    }, [])
+    .reduce((logFnArr, level, index) =>
+      logFnArr.concat(console[level] ? (...args) => console[level](...args) : logFnArr[index - 1])
+    , [])
     .slice(1); // the first entry will be `console.log`, which was manually added, so get rid of it
 
   const customLogFnObj = settings.logFunction || {};
